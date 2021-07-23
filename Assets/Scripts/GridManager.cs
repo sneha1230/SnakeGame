@@ -17,6 +17,25 @@ public class GridManager : SingletonClass<GridManager>
     Vector3 startPoint;
     public Vector3 StartPoint { get { return startPoint; } }
 
+    public GridTile GetRandomTile(int margin=0)
+    {
+        if((margin>width||margin>height)&&margin<0)
+        {
+            return GetTileAt(0, 0);
+        }
+        int x = UnityEngine.Random.Range(0 + margin, width - margin);
+        int y = UnityEngine.Random.Range(0 + margin, height - margin);
+        return GetTileAt(x, y);
+    }
+    private GridTile GetTileAt(int x,int y)
+    {
+        if(grid[x,y]!=null)
+        {
+            return grid[x, y].GetComponent<GridTile>();
+        }
+        return null;
+    }
+
     int width, height;
     Transform[,] grid;
 
